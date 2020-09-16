@@ -2,11 +2,13 @@ package com.company.data.structure.entity;
 
 public class Cell {
 
-
     private Object element;
     private Cell previous;
     private Cell next;
 
+    public Cell(Object element){
+        this(element,null);
+    }
 
     public Cell(Object element, Cell next) {
         this.element = element;

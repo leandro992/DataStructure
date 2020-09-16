@@ -5,17 +5,20 @@ import com.company.data.structure.entity.Cell;
 public class LinkedList {
 
     private Cell fist = null;
-    private Cell end = null;
+    private Cell last = null;
     private int totalElement = 0;
 
     public void addStart(Object element) {
-        Cell nova = new Cell(element, fist);
-        this.fist = nova;
 
         if (this.totalElement == 0) {
-            this.end = this.fist;
+            Cell newCell = new Cell(element);
+            this.fist = newCell;
+            this.last = newCell;
+        } else {
+            Cell newCell = new Cell(element, this.fist);
+            this.fist.setPrevious(newCell);
+            this.fist = newCell;
         }
-
         this.totalElement++;
     }
 
@@ -24,9 +27,10 @@ public class LinkedList {
         if (this.totalElement == 0) {
             addStart(element);
         } else {
-            Cell newCell = new Cell(element, null);
-            this.end.setNext(newCell);
-            this.end = newCell;
+            Cell newCell = new Cell(element);
+            this.last.setNext(newCell);
+            newCell.setPrevious(this.last);
+            this.last = newCell;
             this.totalElement++;
         }
     }
@@ -54,8 +58,12 @@ public class LinkedList {
             addEnd(element);
         } else {
             Cell previous = this.getCell(position - 1);
+            Cell next = previous.getNext();
+
             Cell newCell = new Cell(element, previous.getNext());
+            newCell.setPrevious(previous);
             previous.setNext(newCell);
+            next.setPrevious(newCell);
             this.totalElement++;
         }
     }
@@ -65,7 +73,7 @@ public class LinkedList {
     }
 
 
-    public void removeStart(int position) {
+    public void removeStart() {
 
         if (this.totalElement == 0) {
             throw new IllegalArgumentException("Lista vazia");
@@ -74,19 +82,51 @@ public class LinkedList {
         this.totalElement--;
 
         if (this.totalElement == 0) {
-            this.end = null;
+            this.last = null;
+        }
+    }
+
+    public void removeEnd() {
+        if (this.totalElement == 1) {
+            this.removeStart();
+        } else {
+            Cell penultimate = this.last.getPrevious();
+            penultimate.setNext(null);
+            this.last = penultimate;
+            this.totalElement--;
         }
     }
 
     public void remove(int position) {
+        if (position == 0) {
+            this.removeStart();
+        } else if (position == this.totalElement - 1) {
+            this.removeEnd();
+        } else {
+            Cell previous = this.getCell(position - 1);
+            Cell actual = previous.getNext();
+            Cell next = actual.getNext();
+            previous.setNext(next);
+            next.setPrevious(previous);
+            this.totalElement--;
+        }
+
     }
+
 
     public int size() {
         return this.totalElement;
     }
 
-    public Boolean contains(Object o) {
-        return true;
+    public Boolean contains(Object element) {
+        Cell actual = this.fist;
+        while (actual != null) {
+            if (actual.getElement().equals(element)) {
+                return true;
+            }
+            actual = actual.getNext();
+        }
+        return false;
     }
 
 
