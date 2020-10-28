@@ -13,37 +13,34 @@ public class Vector {
         this.students[totalStudent] = student;
         this.totalStudent++;
     }
-
-
-    private Boolean invalidPosition(int position){
+    
+    private Boolean invalidPosition(int position) {
         return position >= 0 && position <= totalStudent;
     }
 
-    public void add(Student student, int position){
-        if (!invalidPosition(position)){
-            throw new IllegalArgumentException("invalid value.");
-        }
-        for (int i = totalStudent -1; i >= position;){
-            students[i+1] = students[i];
-        }
+    public void add(Student student, int position) {
+        if (!invalidPosition(position)) {throw new IllegalArgumentException("invalid value."); }
+
+        for (int i = totalStudent - 1; i >= position; ) { students[i + 1] = students[i]; }
+
         students[position] = student;
         totalStudent++;
     }
 
-    private Boolean occupiedPosition(int takes){
+    private Boolean occupiedPosition(int takes) {
         return takes >= 0 && takes < totalStudent;
     }
 
     public Student takes(int takes) {
-        if(!occupiedPosition(takes)){
+        if (!occupiedPosition(takes)) {
             throw new IllegalArgumentException("invalid value.");
         }
         return students[takes];
     }
 
     public void remove(int position) {
-        for(int i = position; i < this.totalStudent; i++){
-            this.students[i] = this.students[i+1];
+        for (int i = position; i < this.totalStudent; i++) {
+            this.students[i] = this.students[i + 1];
         }
     }
 

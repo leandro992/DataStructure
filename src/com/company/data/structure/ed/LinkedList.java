@@ -9,7 +9,6 @@ public class LinkedList {
     private int totalElement = 0;
 
     public void addStart(Object element) {
-
         if (this.totalElement == 0) {
             Cell newCell = new Cell(element);
             this.fist = newCell;
@@ -128,7 +127,6 @@ public class LinkedList {
         }
         return false;
     }
-
 
     @Override
     public String toString() {
