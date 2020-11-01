@@ -17,11 +17,9 @@ public class Queue {
     }
 
 
-
     public Boolean empty(){
         return student.size() == 0;
     }
-
 
 
     @Override
