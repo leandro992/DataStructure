@@ -1,28 +1,40 @@
 package com.company;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class SalesByMatch {
 
     public static void main(String[] args) {
 
-        int[] ar  = {10, 20, 20, 10, 10, 30, 50, 10, 20};
-
-        int result = sockMerchant(9, ar);
+        int[] ar = {1, 1, 3, 1, 2, 1, 3, 3, 3, 3};
+        int result = 0;
+        System.out.println(result = sockMerchant(10, ar));
 
     }
 
-    // Complete the sockMerchant function below.
+
     static int sockMerchant(int n, int[] ar) {
-        int contPair = 0;
-        int posicao = ar[0];
-        for(int i = 0; i < n; i++ ){
-            if(ar[i] == ar[i+1]){
-                contPair++;
+        Arrays.sort(ar);
+        int current = ar[0];
+        int count = 1;
+        int pair = 0;
+        for (int i = 1; i < n; i++){
+            if (ar[i] == current){
+                count++;
+                if (count == 2){
+                    pair++;
+                    count -= 2;
+
+                }
+            }else{
+                current = ar[i];
+                count = 1;
             }
         }
-        return 0;
-
+        return pair;
     }
-
 
 
 }
