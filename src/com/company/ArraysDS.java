@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class ArraysDS {
 
@@ -14,14 +13,14 @@ public class ArraysDS {
 
     // Complete the reverseArray function below.
     static int[] reverseArray(int[] a) {
-
-        int[] invert = new int[a.length];
-        int i = a.length;
-       while ( a.length >= i){
-            invert[i] = a[a.length-1];
-            a[i] = i--;
-       }
-        return invert;
+        int aux = 0;
+        int n = a.length;
+        for (int i = 0; i < n/2; ++i) {
+            aux = a[n-i-1];
+            a[n-i-1] = a[i];
+            a[i] = aux;
+        }
+        return a;
     }
 
 
